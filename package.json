@@ -1,0 +1,127 @@
+{
+  "name": "codebuddy",
+  "displayName": "CodeBuddy",
+  "description": "An animated coding companion that watches your terminal and reacts.",
+  "version": "0.1.0",
+  "publisher": "sahilkumar",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Sahilssr1/codebuddy_Extension.git"
+  },
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other",
+    "Visualization"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "type": "webview",
+          "id": "codebuddy.sidebar",
+          "name": "CodeBuddy",
+          "icon": "media/characters/robot.svg",
+          "when": "codeBuddyVisible"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "codebuddy.open",
+        "title": "CodeBuddy: Open",
+        "category": "CodeBuddy"
+      },
+      {
+        "command": "codebuddy.reset",
+        "title": "CodeBuddy: Reset Character",
+        "category": "CodeBuddy"
+      },
+      {
+        "command": "codebuddy.enable",
+        "title": "CodeBuddy: Enable",
+        "category": "CodeBuddy"
+      },
+      {
+        "command": "codebuddy.disable",
+        "title": "CodeBuddy: Disable",
+        "category": "CodeBuddy"
+      },
+      {
+        "command": "codebuddy.testReaction",
+        "title": "CodeBuddy: Test Reaction",
+        "category": "CodeBuddy"
+      }
+    ],
+    "configuration": {
+      "title": "CodeBuddy",
+      "properties": {
+        "codeBuddy.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable CodeBuddy's reactions."
+        },
+        "codeBuddy.character": {
+          "type": "string",
+          "default": "robot",
+          "description": "Select the character to display.",
+          "enum": ["robot"]
+        },
+        "codeBuddy.showMessages": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show messages below the character."
+        },
+        "codeBuddy.soundEnabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable sound effects for success/error (currently disabled)."
+        },
+        "codeBuddy.animationSpeed": {
+          "type": "string",
+          "default": "normal",
+          "enum": ["slow", "normal", "fast"],
+          "description": "Speed of the character animations."
+        },
+        "codeBuddy.theme": {
+          "type": "string",
+          "default": "auto",
+          "enum": ["auto", "dark", "light"],
+          "description": "Theme for the CodeBuddy webview."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.93.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^16.18.34",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/parser": "^6.4.1",
+    "eslint": "^8.47.0",
+    "glob": "^8.1.0",
+    "mocha": "^10.2.0",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "@vscode/test-electron": "^2.3.4"
+  }
+}

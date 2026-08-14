@@ -1,0 +1,175 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: var(--vscode-font-family);
+    color: var(--vscode-editor-foreground);
+    background-color: var(--vscode-editor-background);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 20px;
+}
+
+.character-container {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    animation: paceLeftRight 4s infinite ease-in-out;
+}
+
+@keyframes paceLeftRight {
+    0% { transform: translateX(-50%); }
+    50% { transform: translateX(50%); }
+    100% { transform: translateX(-50%); }
+}
+
+.character-img {
+    width: 100%;
+    height: 100%;
+    transform-origin: bottom center;
+}
+
+/* Animations based on state */
+.character-container[data-state="idle"] .character-img {
+    animation: breathe 3s infinite ease-in-out;
+}
+
+.character-container[data-state="running"] .character-img {
+    animation: bounce 0.5s infinite alternate ease-in-out;
+}
+
+.character-container[data-state="success"] .character-img {
+    animation: jump 1s ease-in-out;
+}
+
+.character-container[data-state="error"] .character-img {
+    animation: shake 0.5s ease-in-out;
+    filter: sepia(1) hue-rotate(300deg) saturate(3);
+}
+
+.character-container[data-state="warning"] .character-img {
+    animation: wobble 1s ease-in-out;
+    filter: sepia(1) hue-rotate(10deg) saturate(3);
+}
+
+.character-container[data-state="testing"] .character-img {
+    animation: spin-pulse 2s infinite linear;
+}
+
+@keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05) translateY(-2px); }
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-15px); }
+}
+
+@keyframes jump {
+    0%, 100% { transform: translateY(0) scale(1); }
+    30% { transform: translateY(-30px) scale(1.1); }
+    50% { transform: translateY(-30px) scale(1.1) rotate(10deg); }
+    70% { transform: translateY(-30px) scale(1.1) rotate(-10deg); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-10px) rotate(-5deg); }
+    40%, 80% { transform: translateX(10px) rotate(5deg); }
+}
+
+@keyframes wobble {
+    0%, 100% { transform: rotate(0); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+@keyframes spin-pulse {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.slide-in-right {
+    animation: slideInRight 0.5s ease-out;
+}
+
+@keyframes slideInRight {
+    0% { transform: translateX(100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+.status-panel {
+    text-align: center;
+    background: var(--vscode-editorWidget-background);
+    border: 1px solid var(--vscode-widget-border);
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    max-width: 250px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.command-text {
+    font-size: 0.85em;
+    opacity: 0.7;
+    margin-bottom: 8px;
+    font-family: var(--vscode-editor-font-family);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message-text {
+    font-size: 1.1em;
+    font-weight: bold;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pop {
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9em;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
